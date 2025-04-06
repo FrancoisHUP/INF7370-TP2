@@ -44,7 +44,9 @@ Then, install the required packages with:
 pip install -r requirements.txt
 ```
 
-### Download Data
+## Downloads
+
+### Data
 
 We use a dataset of 30,000 images. You can download the [zip file](https://drive.google.com/drive/folders/1x6_nLO4wFT_nHMThUeeeb2Hj-TcE84Bi?usp=sharing) with the following commands:
 
@@ -52,6 +54,14 @@ We use a dataset of 30,000 images. You can download the [zip file](https://drive
 pip install -q gdown
 gdown --id 18-fICo3gs8LuwqtPp17VFdBNge5q-58M
 ```
+
+### Models
+
+| Model name | Size    | Link | Command |  
+| ---------- | ------- | ---- | ------- |
+| Small      | 18.9 MB | https://drive.google.com/file/d/1dc0q3qYVHiFH09HAH19VIOI-wvliYUPK/view?usp=sharing | `gdown --id 1dc0q3qYVHiFH09HAH19VIOI-wvliYUPK` |
+| Big        | 301 MB  | https://drive.google.com/file/d/1xPZlTToQXKy93sM9aawOC3zBYnY2nK1m/view?usp=sharing | `gdown --id 1xPZlTToQXKy93sM9aawOC3zBYnY2nK1m`  |
+
 
 ## Model, Training, and Evaluation
 

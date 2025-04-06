@@ -5,17 +5,11 @@ import os
 from keras.models import load_model
 import random
 
-# ---------------------------
-# Configuration
-# ---------------------------
+
 BATCH_SIZE = 1
 MODEL_PATH = "models/default_Model.keras"  # path to the saved model
 TEST_PATH = "donnees/test"         # path to the test dataset
 
-
-# ---------------------------
-# Data Loading
-# ---------------------------
 def get_test_generator(target_size, color_mode):
     test_datagen = ImageDataGenerator(rescale=1. / 255)
     test_generator = test_datagen.flow_from_directory(
@@ -27,18 +21,13 @@ def get_test_generator(target_size, color_mode):
         color_mode=color_mode
     )
     return test_generator
-# ---------------------------
-# Model Evaluation
-# ---------------------------
+
 def evaluate_model(model, test_generator):
     eval_results = model.evaluate(test_generator, verbose=1)
     print("> Test Loss:", eval_results[0])
     print("> Test Accuracy:", eval_results[1])
     return eval_results
 
-# ---------------------------
-# Predictions and Confusion Matrix
-# ---------------------------
 def get_predictions(model, test_generator):
     predictions = model.predict(test_generator, verbose=1)
     predicted_labels = np.argmax(predictions, axis=1)
@@ -130,9 +119,7 @@ def plot_misclassified_grid(true_labels, predicted_labels, test_generator, class
     print(f"Misclassified grid plot saved to {output_path}")
     plt.close()
 
-# ---------------------------
-# Per-Class Metrics and Plotting
-# ---------------------------
+
 def compute_class_metrics(cm, class_names):
     metrics = {}
     for i, cls in enumerate(class_names):
@@ -175,9 +162,7 @@ def plot_class_metrics(metrics, output_path):
     print(f"Per-class metrics plot saved to {output_path}")
     plt.close()
 
-# ---------------------------
-# Main Evaluation Function
-# ---------------------------
+
 def eval(model_path="output/10_deep_wide/best_model.keras"):
     # Load the trained model
     model = load_model(model_path)
