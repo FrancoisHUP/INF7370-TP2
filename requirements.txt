@@ -1,5 +1,6 @@
-tensorflow
+tensorflow[and-cuda]==2.18.0
 keras
 matplotlib
-tqdm
 scipy
+tqdm
+visualkeras

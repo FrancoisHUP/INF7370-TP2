@@ -1,0 +1,360 @@
+(.venv) frank@Frank:~/INF7370-TP2$ python 1_Modele.py 
+2025-04-02 20:36:08.210718: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1743640568.223661  670128 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1743640568.227491  670128 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-04-02 20:36:08.242054: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPU(s) detected:
+ - PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+Found extracted folder 'donnees'.
+Found 21600 images belonging to 6 classes.
+Found 2400 images belonging to 6 classes.
+I0000 00:00:1743640575.634262  670128 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 5592 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 3060 Ti, pci bus id: 0000:01:00.0, compute capability: 8.6
+Model: "functional"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ input_layer (InputLayer)             │ (None, 256, 256, 3)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d (Conv2D)                      │ (None, 256, 256, 32)        │             896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization                  │ (None, 256, 256, 32)        │             128 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d (MaxPooling2D)         │ (None, 128, 128, 32)        │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_1 (Conv2D)                    │ (None, 128, 128, 64)        │          18,496 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_1 (MaxPooling2D)       │ (None, 64, 64, 64)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_2 (Conv2D)                    │ (None, 64, 64, 128)         │          73,856 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_1                │ (None, 64, 64, 128)         │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_2 (MaxPooling2D)       │ (None, 32, 32, 128)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_3 (Conv2D)                    │ (None, 32, 32, 256)         │         295,168 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_3 (MaxPooling2D)       │ (None, 16, 16, 256)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_4 (Conv2D)                    │ (None, 16, 16, 512)         │       1,180,160 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_2                │ (None, 16, 16, 512)         │           2,048 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_4 (MaxPooling2D)       │ (None, 8, 8, 512)           │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_5 (Conv2D)                    │ (None, 8, 8, 1048)          │       4,830,232 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_5 (MaxPooling2D)       │ (None, 4, 4, 1048)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_6 (Conv2D)                    │ (None, 4, 4, 2048)          │      19,318,784 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_3                │ (None, 4, 4, 2048)          │           8,192 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_6 (MaxPooling2D)       │ (None, 2, 2, 2048)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ global_average_pooling2d             │ (None, 2048)                │               0 │
+│ (GlobalAveragePooling2D)             │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 256)                 │         524,544 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 256)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 128)                 │          32,896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_1 (Dropout)                  │ (None, 128)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_2 (Dense)                      │ (None, 64)                  │           8,256 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_2 (Dropout)                  │ (None, 64)                  │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_3 (Dense)                      │ (None, 6)                   │             390 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 26,294,558 (100.31 MB)
+ Trainable params: 26,289,118 (100.29 MB)
+ Non-trainable params: 5,440 (21.25 KB)
+/home/frank/INF7370-TP2/.venv/lib/python3.12/site-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+Epoch 1/50
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1743640581.557432  670254 service.cc:148] XLA service 0x7fa3e4019580 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1743640581.558096  670254 service.cc:156]   StreamExecutor device (0): NVIDIA GeForce RTX 3060 Ti, Compute Capability 8.6
+2025-04-02 20:36:21.721971: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:268] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+I0000 00:00:1743640582.277752  670254 cuda_dnn.cc:529] Loaded cuDNN version 90300
+2025-04-02 20:36:23.619707: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_1537_0', 112 bytes spill stores, 224 bytes spill loads
+
+2025-04-02 20:36:23.882036: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_1537', 192 bytes spill stores, 512 bytes spill loads
+
+2025-04-02 20:36:24.287358: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_2980', 24 bytes spill stores, 24 bytes spill loads
+
+2025-04-02 20:36:24.467625: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_2980', 24 bytes spill stores, 28 bytes spill loads
+
+2025-04-02 20:36:24.469477: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_2980', 24 bytes spill stores, 28 bytes spill loads
+
+2025-04-02 20:36:27.275327: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 9.12GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+I0000 00:00:1743640593.668767  670254 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 355ms/step - accuracy: 0.3402 - loss: 2.2530/home/frank/INF7370-TP2/.venv/lib/python3.12/site-packages/keras/src/trainers/data_adapters/py_dataset_adapter.py:121: UserWarning: Your `PyDataset` class should call `super().__init__(**kwargs)` in its constructor. `**kwargs` can include `workers`, `use_multiprocessing`, `max_queue_size`. Do not pass these arguments to `fit()`, as they will be ignored.
+  self._warn_if_super_not_called()
+2025-04-02 20:40:34.008215: I external/local_xla/xla/stream_executor/cuda/cuda_asm_compiler.cc:397] ptxas warning : Registers are spilled to local memory in function 'gemm_fusion_dot_306_0', 8 bytes spill stores, 8 bytes spill loads
+
+
+Epoch 1: val_accuracy improved from -inf to 0.46625, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 287s 402ms/step - accuracy: 0.3402 - loss: 2.2526 - val_accuracy: 0.4663 - val_loss: 1.6242 - learning_rate: 0.0010
+Epoch 2/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 346ms/step - accuracy: 0.4714 - loss: 1.5857  
+Epoch 2: val_accuracy improved from 0.46625 to 0.50667, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 388ms/step - accuracy: 0.4715 - loss: 1.5856 - val_accuracy: 0.5067 - val_loss: 1.4250 - learning_rate: 0.0010
+Epoch 3/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 352ms/step - accuracy: 0.5445 - loss: 1.3946  
+Epoch 3: val_accuracy improved from 0.50667 to 0.60958, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 265s 393ms/step - accuracy: 0.5445 - loss: 1.3946 - val_accuracy: 0.6096 - val_loss: 1.2725 - learning_rate: 0.0010
+Epoch 4/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 346ms/step - accuracy: 0.6083 - loss: 1.2765  
+Epoch 4: val_accuracy improved from 0.60958 to 0.62875, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 387ms/step - accuracy: 0.6083 - loss: 1.2765 - val_accuracy: 0.6288 - val_loss: 1.2018 - learning_rate: 0.0010
+Epoch 5/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 347ms/step - accuracy: 0.6359 - loss: 1.2076  
+Epoch 5: val_accuracy did not improve from 0.62875
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 387ms/step - accuracy: 0.6360 - loss: 1.2076 - val_accuracy: 0.5888 - val_loss: 1.3196 - learning_rate: 0.0010
+Epoch 6/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 352ms/step - accuracy: 0.6831 - loss: 1.1182  
+Epoch 6: val_accuracy improved from 0.62875 to 0.65208, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 266s 394ms/step - accuracy: 0.6831 - loss: 1.1182 - val_accuracy: 0.6521 - val_loss: 1.1844 - learning_rate: 0.0010
+Epoch 7/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 347ms/step - accuracy: 0.6981 - loss: 1.0896  
+Epoch 7: val_accuracy improved from 0.65208 to 0.67833, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 263s 389ms/step - accuracy: 0.6981 - loss: 1.0896 - val_accuracy: 0.6783 - val_loss: 1.1124 - learning_rate: 0.0010
+Epoch 8/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 351ms/step - accuracy: 0.7270 - loss: 1.0271  
+Epoch 8: val_accuracy did not improve from 0.67833
+675/675 ━━━━━━━━━━━━━━━━━━━━ 261s 386ms/step - accuracy: 0.7270 - loss: 1.0271 - val_accuracy: 0.6725 - val_loss: 1.1162 - learning_rate: 0.0010
+Epoch 9/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 366ms/step - accuracy: 0.7398 - loss: 1.0122  
+Epoch 9: val_accuracy improved from 0.67833 to 0.73083, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 278s 412ms/step - accuracy: 0.7398 - loss: 1.0121 - val_accuracy: 0.7308 - val_loss: 1.0129 - learning_rate: 0.0010
+Epoch 10/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 390ms/step - accuracy: 0.7631 - loss: 0.9663  
+Epoch 10: val_accuracy improved from 0.73083 to 0.75750, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 294s 435ms/step - accuracy: 0.7631 - loss: 0.9663 - val_accuracy: 0.7575 - val_loss: 0.9442 - learning_rate: 0.0010
+Epoch 11/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 354ms/step - accuracy: 0.7735 - loss: 0.9442  
+Epoch 11: val_accuracy improved from 0.75750 to 0.75875, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 269s 396ms/step - accuracy: 0.7735 - loss: 0.9442 - val_accuracy: 0.7588 - val_loss: 0.9565 - learning_rate: 0.0010
+Epoch 12/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 346ms/step - accuracy: 0.7829 - loss: 0.9174  
+Epoch 12: val_accuracy did not improve from 0.75875
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 387ms/step - accuracy: 0.7829 - loss: 0.9173 - val_accuracy: 0.6617 - val_loss: 1.1530 - learning_rate: 0.0010
+Epoch 13/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 350ms/step - accuracy: 0.8030 - loss: 0.8826  
+Epoch 13: val_accuracy improved from 0.75875 to 0.77083, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 260s 386ms/step - accuracy: 0.8030 - loss: 0.8826 - val_accuracy: 0.7708 - val_loss: 0.9520 - learning_rate: 0.0010
+Epoch 14/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 349ms/step - accuracy: 0.8342 - loss: 0.8112  
+Epoch 14: val_accuracy improved from 0.77083 to 0.82292, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 267s 394ms/step - accuracy: 0.8342 - loss: 0.8111 - val_accuracy: 0.8229 - val_loss: 0.8226 - learning_rate: 3.0000e-04
+Epoch 15/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 354ms/step - accuracy: 0.8465 - loss: 0.7805   
+Epoch 15: val_accuracy improved from 0.82292 to 0.83167, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 268s 396ms/step - accuracy: 0.8465 - loss: 0.7805 - val_accuracy: 0.8317 - val_loss: 0.7844 - learning_rate: 3.0000e-04
+Epoch 16/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 350ms/step - accuracy: 0.8591 - loss: 0.7548  
+Epoch 16: val_accuracy did not improve from 0.83167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 260s 385ms/step - accuracy: 0.8591 - loss: 0.7548 - val_accuracy: 0.8242 - val_loss: 0.8072 - learning_rate: 3.0000e-04
+Epoch 17/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 350ms/step - accuracy: 0.8648 - loss: 0.7396   
+Epoch 17: val_accuracy did not improve from 0.83167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 391ms/step - accuracy: 0.8648 - loss: 0.7396 - val_accuracy: 0.8092 - val_loss: 0.8449 - learning_rate: 3.0000e-04
+Epoch 18/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 347ms/step - accuracy: 0.8702 - loss: 0.7349  
+Epoch 18: val_accuracy improved from 0.83167 to 0.84500, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 388ms/step - accuracy: 0.8702 - loss: 0.7349 - val_accuracy: 0.8450 - val_loss: 0.7717 - learning_rate: 3.0000e-04
+Epoch 19/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 351ms/step - accuracy: 0.8707 - loss: 0.7241  
+Epoch 19: val_accuracy did not improve from 0.84500
+675/675 ━━━━━━━━━━━━━━━━━━━━ 261s 386ms/step - accuracy: 0.8707 - loss: 0.7241 - val_accuracy: 0.8400 - val_loss: 0.7745 - learning_rate: 3.0000e-04
+Epoch 20/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 350ms/step - accuracy: 0.8767 - loss: 0.7136  
+Epoch 20: val_accuracy did not improve from 0.84500
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 390ms/step - accuracy: 0.8767 - loss: 0.7136 - val_accuracy: 0.8288 - val_loss: 0.7949 - learning_rate: 3.0000e-04
+Epoch 21/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 348ms/step - accuracy: 0.8813 - loss: 0.7064  
+Epoch 21: val_accuracy did not improve from 0.84500
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 390ms/step - accuracy: 0.8813 - loss: 0.7064 - val_accuracy: 0.8421 - val_loss: 0.7796 - learning_rate: 3.0000e-04
+Epoch 22/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 357ms/step - accuracy: 0.8959 - loss: 0.6732  
+Epoch 22: val_accuracy improved from 0.84500 to 0.86458, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 273s 404ms/step - accuracy: 0.8959 - loss: 0.6732 - val_accuracy: 0.8646 - val_loss: 0.7242 - learning_rate: 9.0000e-05
+Epoch 23/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 347ms/step - accuracy: 0.9044 - loss: 0.6578  
+Epoch 23: val_accuracy improved from 0.86458 to 0.86833, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 388ms/step - accuracy: 0.9044 - loss: 0.6578 - val_accuracy: 0.8683 - val_loss: 0.7218 - learning_rate: 9.0000e-05
+Epoch 24/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 355ms/step - accuracy: 0.9069 - loss: 0.6511  
+Epoch 24: val_accuracy did not improve from 0.86833
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 391ms/step - accuracy: 0.9069 - loss: 0.6511 - val_accuracy: 0.8583 - val_loss: 0.7382 - learning_rate: 9.0000e-05
+Epoch 25/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 352ms/step - accuracy: 0.9075 - loss: 0.6503  
+Epoch 25: val_accuracy did not improve from 0.86833
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 391ms/step - accuracy: 0.9075 - loss: 0.6503 - val_accuracy: 0.8667 - val_loss: 0.7188 - learning_rate: 9.0000e-05
+Epoch 26/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 344ms/step - accuracy: 0.9084 - loss: 0.6481  
+Epoch 26: val_accuracy did not improve from 0.86833
+675/675 ━━━━━━━━━━━━━━━━━━━━ 260s 385ms/step - accuracy: 0.9084 - loss: 0.6481 - val_accuracy: 0.8642 - val_loss: 0.7235 - learning_rate: 9.0000e-05
+Epoch 27/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 355ms/step - accuracy: 0.9146 - loss: 0.6329  
+Epoch 27: val_accuracy did not improve from 0.86833
+675/675 ━━━━━━━━━━━━━━━━━━━━ 269s 398ms/step - accuracy: 0.9146 - loss: 0.6329 - val_accuracy: 0.8662 - val_loss: 0.7289 - learning_rate: 9.0000e-05
+Epoch 28/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 348ms/step - accuracy: 0.9124 - loss: 0.6394  
+Epoch 28: val_accuracy improved from 0.86833 to 0.87458, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 264s 390ms/step - accuracy: 0.9124 - loss: 0.6394 - val_accuracy: 0.8746 - val_loss: 0.7188 - learning_rate: 9.0000e-05
+Epoch 29/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 346ms/step - accuracy: 0.9176 - loss: 0.6236  
+Epoch 29: val_accuracy improved from 0.87458 to 0.87583, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 262s 387ms/step - accuracy: 0.9176 - loss: 0.6236 - val_accuracy: 0.8758 - val_loss: 0.7118 - learning_rate: 2.7000e-05
+Epoch 30/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 350ms/step - accuracy: 0.9242 - loss: 0.6161  
+Epoch 30: val_accuracy improved from 0.87583 to 0.87625, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 261s 386ms/step - accuracy: 0.9242 - loss: 0.6161 - val_accuracy: 0.8763 - val_loss: 0.7061 - learning_rate: 2.7000e-05
+Epoch 31/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 353ms/step - accuracy: 0.9206 - loss: 0.6246  
+Epoch 31: val_accuracy improved from 0.87625 to 0.88167, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 271s 397ms/step - accuracy: 0.9206 - loss: 0.6246 - val_accuracy: 0.8817 - val_loss: 0.7051 - learning_rate: 2.7000e-05
+Epoch 32/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 356ms/step - accuracy: 0.9198 - loss: 0.6211   
+Epoch 32: val_accuracy did not improve from 0.88167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 268s 396ms/step - accuracy: 0.9198 - loss: 0.6211 - val_accuracy: 0.8717 - val_loss: 0.7143 - learning_rate: 2.7000e-05
+Epoch 33/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 345ms/step - accuracy: 0.9224 - loss: 0.6147  
+Epoch 33: val_accuracy did not improve from 0.88167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 260s 385ms/step - accuracy: 0.9224 - loss: 0.6147 - val_accuracy: 0.8750 - val_loss: 0.7070 - learning_rate: 2.7000e-05
+Epoch 34/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 345ms/step - accuracy: 0.9215 - loss: 0.6217  
+Epoch 34: val_accuracy did not improve from 0.88167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 257s 380ms/step - accuracy: 0.9215 - loss: 0.6217 - val_accuracy: 0.8788 - val_loss: 0.7098 - learning_rate: 2.7000e-05
+Epoch 35/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 339ms/step - accuracy: 0.9246 - loss: 0.6154  
+Epoch 35: val_accuracy did not improve from 0.88167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 259s 379ms/step - accuracy: 0.9246 - loss: 0.6154 - val_accuracy: 0.8742 - val_loss: 0.7080 - learning_rate: 8.1000e-06
+Epoch 36/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 346ms/step - accuracy: 0.9266 - loss: 0.6095  
+Epoch 36: val_accuracy did not improve from 0.88167
+675/675 ━━━━━━━━━━━━━━━━━━━━ 263s 388ms/step - accuracy: 0.9266 - loss: 0.6095 - val_accuracy: 0.8788 - val_loss: 0.6987 - learning_rate: 8.1000e-06
+Epoch 37/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 369ms/step - accuracy: 0.9260 - loss: 0.6075  
+Epoch 37: val_accuracy improved from 0.88167 to 0.88208, saving model to output/10_deep_wide/best_model.keras
+675/675 ━━━━━━━━━━━━━━━━━━━━ 281s 416ms/step - accuracy: 0.9260 - loss: 0.6075 - val_accuracy: 0.8821 - val_loss: 0.6973 - learning_rate: 8.1000e-06
+Epoch 38/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 368ms/step - accuracy: 0.9241 - loss: 0.6156  
+Epoch 38: val_accuracy did not improve from 0.88208
+675/675 ━━━━━━━━━━━━━━━━━━━━ 278s 411ms/step - accuracy: 0.9241 - loss: 0.6156 - val_accuracy: 0.8754 - val_loss: 0.7102 - learning_rate: 8.1000e-06
+Epoch 39/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 338ms/step - accuracy: 0.9251 - loss: 0.6061  
+Epoch 39: val_accuracy did not improve from 0.88208
+675/675 ━━━━━━━━━━━━━━━━━━━━ 254s 377ms/step - accuracy: 0.9251 - loss: 0.6061 - val_accuracy: 0.8717 - val_loss: 0.7116 - learning_rate: 8.1000e-06
+Epoch 40/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 339ms/step - accuracy: 0.9277 - loss: 0.6060  
+Epoch 40: val_accuracy did not improve from 0.88208
+675/675 ━━━━━━━━━━━━━━━━━━━━ 256s 379ms/step - accuracy: 0.9277 - loss: 0.6060 - val_accuracy: 0.8750 - val_loss: 0.7069 - learning_rate: 8.1000e-06
+Epoch 41/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 343ms/step - accuracy: 0.9315 - loss: 0.5996  
+Epoch 41: val_accuracy did not improve from 0.88208
+675/675 ━━━━━━━━━━━━━━━━━━━━ 260s 384ms/step - accuracy: 0.9315 - loss: 0.5996 - val_accuracy: 0.8746 - val_loss: 0.7060 - learning_rate: 2.4300e-06
+Epoch 42/50
+675/675 ━━━━━━━━━━━━━━━━━━━━ 0s 351ms/step - accuracy: 0.9264 - loss: 0.6083  
+Epoch 42: val_accuracy did not improve from 0.88208
+675/675 ━━━━━━━━━━━━━━━━━━━━ 261s 386ms/step - accuracy: 0.9264 - loss: 0.6083 - val_accuracy: 0.8717 - val_loss: 0.7102 - learning_rate: 2.4300e-06
+Starting automatic evaluation...
+Model: "functional"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ input_layer (InputLayer)             │ (None, 256, 256, 3)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d (Conv2D)                      │ (None, 256, 256, 32)        │             896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization                  │ (None, 256, 256, 32)        │             128 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d (MaxPooling2D)         │ (None, 128, 128, 32)        │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_1 (Conv2D)                    │ (None, 128, 128, 64)        │          18,496 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_1 (MaxPooling2D)       │ (None, 64, 64, 64)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_2 (Conv2D)                    │ (None, 64, 64, 128)         │          73,856 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_1                │ (None, 64, 64, 128)         │             512 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_2 (MaxPooling2D)       │ (None, 32, 32, 128)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_3 (Conv2D)                    │ (None, 32, 32, 256)         │         295,168 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_3 (MaxPooling2D)       │ (None, 16, 16, 256)         │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_4 (Conv2D)                    │ (None, 16, 16, 512)         │       1,180,160 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_2                │ (None, 16, 16, 512)         │           2,048 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_4 (MaxPooling2D)       │ (None, 8, 8, 512)           │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_5 (Conv2D)                    │ (None, 8, 8, 1048)          │       4,830,232 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_5 (MaxPooling2D)       │ (None, 4, 4, 1048)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_6 (Conv2D)                    │ (None, 4, 4, 2048)          │      19,318,784 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ batch_normalization_3                │ (None, 4, 4, 2048)          │           8,192 │
+│ (BatchNormalization)                 │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_6 (MaxPooling2D)       │ (None, 2, 2, 2048)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ global_average_pooling2d             │ (None, 2048)                │               0 │
+│ (GlobalAveragePooling2D)             │                             │                 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 256)                 │         524,544 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 256)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 128)                 │          32,896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_1 (Dropout)                  │ (None, 128)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_2 (Dense)                      │ (None, 64)                  │           8,256 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout_2 (Dropout)                  │ (None, 64)                  │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_3 (Dense)                      │ (None, 6)                   │             390 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 78,872,796 (300.88 MB)
+ Trainable params: 26,289,118 (100.29 MB)
+ Non-trainable params: 5,440 (21.25 KB)
+ Optimizer params: 52,578,238 (200.57 MB)
+Model input size: (256, 256)
+Model expects 3 channel(s) -> using color_mode: rgb
+Found 6000 images belonging to 6 classes.
+6000/6000 ━━━━━━━━━━━━━━━━━━━━ 34s 5ms/step - accuracy: 0.8870 - loss: 0.6804   
+> Test Loss: 0.6325532793998718
+> Test Accuracy: 0.9106666445732117
+6000/6000 ━━━━━━━━━━━━━━━━━━━━ 24s 4ms/step      
+Confusion Matrix:
+[[868  56  13  20  34   9]
+ [ 50 843  11  10  84   2]
+ [  2   3 969  21   5   0]
+ [ 25   8  52 904  11   0]
+ [ 23  62  11   6 894   4]
+ [  7   2   2   1   2 986]]
+Confusion matrix plot saved to output/10_deep_wide/confusion_matrix.png
+Class baleine: Precision: 0.8903, Recall: 0.8680, F1: 0.8790, Support: 1000
+Class dauphin: Precision: 0.8655, Recall: 0.8430, F1: 0.8541, Support: 1000
+Class morse: Precision: 0.9159, Recall: 0.9690, F1: 0.9417, Support: 1000
+Class phoque: Precision: 0.9397, Recall: 0.9040, F1: 0.9215, Support: 1000
+Class requin: Precision: 0.8680, Recall: 0.8940, F1: 0.8808, Support: 1000
+Class requinbaleine: Precision: 0.9850, Recall: 0.9860, F1: 0.9855, Support: 1000
+Per-class metrics plot saved to output/10_deep_wide/class_metrics.png
